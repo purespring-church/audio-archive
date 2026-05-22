@@ -1,3 +1,14 @@
+/**
+ * [최근 설교 히어로 배너] — 서버 컴포넌트
+ *
+ * 데이터 흐름:
+ *   app/sermons/page.tsx
+ *     → getLatestSermon() (lib/db/sermons.ts)
+ *     → sermon props로 전달
+ *
+ * sermon이 null인 경우: 등록된 설교가 없거나 Supabase 미연결 상태
+ */
+
 import Link from 'next/link'
 import { Sermon } from '@/types/sermon'
 

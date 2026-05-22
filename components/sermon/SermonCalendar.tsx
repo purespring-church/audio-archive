@@ -1,3 +1,15 @@
+/**
+ * [설교 달력 컴포넌트] — 클라이언트 컴포넌트 ('use client')
+ *
+ * 데이터 흐름:
+ *   app/sermons/page.tsx
+ *     → getSermonDates() (lib/db/sermons.ts)
+ *     → sermonDates props로 전달
+ *     → 날짜별 점(●) 표시 + 클릭 시 /sermons/[id] 이동
+ *
+ * 'use client'인 이유: 월 이동(◀/▶) 버튼의 상태(useState)가 필요하기 때문
+ */
+
 'use client'
 
 import Link from 'next/link'
@@ -13,13 +25,17 @@ export default function SermonCalendar({ sermonDates }: Props) {
   const [year, setYear] = useState(today.getFullYear())
   const [month, setMonth] = useState(today.getMonth() + 1) // 1~12
 
-  // 'YYYY-MM-DD' → sermon id 매핑
+  // sermonMap: 날짜 문자열 → 설교 ID 매핑 (O(1) 빠른 조회용)
+  // 예: { '2026-05-22': 'uuid-...' }
   const sermonMap: Record<string, string> = {}
   for (const s of sermonDates) {
     sermonMap[s.sermon_date] = s.id
   }
 
-  const firstDayOfWeek = new Date(year, month - 1, 1).getDay() // 0=일
+  // firstDayOfWeek: 이 달 1일이 무슨 요일인지 (0=일, 6=토)
+  // → 달력 앞에 빈 칸을 몇 개 넣을지 결정
+  const firstDayOfWeek = new Date(year, month - 1, 1).getDay()
+  // lastDate: 이 달의 마지막 날짜 (28~31)
   const lastDate = new Date(year, month, 0).getDate()
 
   function prevMonth() {
@@ -36,7 +52,9 @@ export default function SermonCalendar({ sermonDates }: Props) {
     return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
   }
 
-  // 달력 셀 배열: 앞 빈칸 + 날짜 + 뒤 빈칸(7 배수 맞춤)
+  // cells: 빈 칸(null) + 날짜(숫자)로 구성된 달력 셀 배열
+  // [null, null, 1, 2, 3, ... 31, null] 형태
+  // 7의 배수로 맞춰야 7열 그리드가 깔끔하게 맞음
   const cells: (number | null)[] = [
     ...Array(firstDayOfWeek).fill(null),
     ...Array.from({ length: lastDate }, (_, i) => i + 1),

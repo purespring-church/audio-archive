@@ -1,3 +1,11 @@
+/**
+ * [설교 API — 단건]
+ * GET    /api/sermons/[id] → 설교 단건 반환 (구현됨)
+ * DELETE /api/sermons/[id] → 설교 삭제 (4회차 구현 예정)
+ *
+ * _req: 요청 본문을 사용하지 않는 경우 _ 접두어로 표시 (TypeScript 관례)
+ */
+
 import { NextResponse } from 'next/server'
 import { getSermonById } from '@/lib/db/sermons'
 

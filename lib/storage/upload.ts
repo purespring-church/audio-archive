@@ -1,9 +1,18 @@
 import { createClient } from '@/lib/supabase/server'
 
+/**
+ * [Supabase Storage 파일 업로드]
+ *
+ * 호출 위치: app/sermons/upload/page.tsx (3회차 구현 예정)
+ * 반환값: 업로드된 파일의 공개 URL → lib/db/sermons.ts createSermon()에 전달
+ *
+ * 저장 경로: {연도}/{월}/{타임스탬프}-{파일명}
+ * 예) 2026/05/1716345678901-sermon.m4a
+ * 타임스탬프를 앞에 붙여 파일명 중복 방지
+ */
+
 const BUCKET = 'sermons'
 
-// 오디오 파일을 Supabase Storage에 업로드
-// 반환값: 업로드된 파일의 공개 URL
 export async function uploadAudioFile(file: File): Promise<string> {
   const supabase = await createClient()
 

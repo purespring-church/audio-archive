@@ -1,3 +1,13 @@
+/**
+ * [홈 페이지] — 서버 컴포넌트
+ * 경로: /sermons
+ *
+ * 데이터 흐름:
+ *   getLatestSermon()  → HeroBanner에 전달 (최근 설교 배너)
+ *   getSermonDates()   → SermonCalendar에 전달 (달력 점 표시)
+ *   Promise.all로 두 요청을 병렬 실행 → 로딩 시간 단축
+ */
+
 import { getLatestSermon, getSermonDates } from '@/lib/db/sermons'
 import HeroBanner from '@/components/sermon/HeroBanner'
 import SermonCalendar from '@/components/sermon/SermonCalendar'

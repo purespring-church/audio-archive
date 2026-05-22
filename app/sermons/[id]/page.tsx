@@ -1,3 +1,15 @@
+/**
+ * [설교 상세 페이지] — 서버 컴포넌트
+ * 경로: /sermons/[id]
+ *
+ * 데이터 흐름:
+ *   URL의 id → getSermonById(id) (lib/db/sermons.ts)
+ *   → sermon.file_url → AudioPlayer에 전달
+ *
+ * params가 Promise인 이유: Next.js 15부터 동적 라우트 params가 비동기로 변경됨
+ * notFound(): 설교가 없으면 자동으로 404 페이지로 이동
+ */
+
 import { notFound } from 'next/navigation'
 import { getSermonById } from '@/lib/db/sermons'
 import AudioPlayer from '@/components/sermon/AudioPlayer'

@@ -1,6 +1,22 @@
 import { Sermon } from '@/types/sermon'
 import { mockSermons } from '@/lib/mock/sermons'
 
+/**
+ * [설교 DB 쿼리 함수]
+ *
+ * 호출 위치:
+ *   - app/sermons/page.tsx          → getLatestSermon, getSermonDates
+ *   - app/sermons/list/page.tsx     → getSermons
+ *   - app/sermons/[id]/page.tsx     → getSermonById
+ *   - app/api/sermons/route.ts      → getSermons (GET)
+ *   - app/api/sermons/[id]/route.ts → getSermonById (GET)
+ *
+ * 내부 구조:
+ *   NEXT_PUBLIC_SUPABASE_URL이 없으면 → lib/mock/sermons.ts 반환
+ *   있으면 → lib/supabase/server.ts 로 실제 DB 조회
+ */
+
+// 이 값을 기준으로 모든 함수에서 mock/실제 DB를 분기
 const isSupabaseConfigured = !!process.env.NEXT_PUBLIC_SUPABASE_URL
 
 // 전체 설교 목록 조회 (날짜 내림차순)

@@ -1,3 +1,15 @@
+/**
+ * [오디오 플레이어] — 클라이언트 컴포넌트 ('use client')
+ *
+ * 데이터 흐름:
+ *   app/sermons/[id]/page.tsx
+ *     → getSermonById() (lib/db/sermons.ts)
+ *     → sermon.file_url props로 전달
+ *
+ * file_url이 빈 문자열(''): mock 데이터 상태 → 재생 불가 안내 표시
+ * file_url이 있는 경우: Supabase Storage URL → HTML5 <audio>로 재생
+ */
+
 'use client'
 
 type Props = {

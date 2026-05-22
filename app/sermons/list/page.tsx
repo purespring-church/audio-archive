@@ -1,3 +1,12 @@
+/**
+ * [설교 목록 페이지] — 서버 컴포넌트
+ * 경로: /sermons/list
+ *
+ * 데이터 흐름:
+ *   getSermons() (lib/db/sermons.ts) → 날짜 내림차순 목록 → 리스트 렌더링
+ *   각 항목 클릭 → /sermons/[id] 이동
+ */
+
 import Link from 'next/link'
 import { getSermons } from '@/lib/db/sermons'
 import BackButton from '@/components/layout/BackButton'
