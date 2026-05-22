@@ -26,17 +26,21 @@ sam-starters/
 │
 ├── app/                       # Next.js 앱 라우터
 │   ├── sermons/               # [프론트엔드] 설교 관련 페이지
-│   │   ├── page.tsx           #   - 설교 목록
+│   │   ├── page.tsx           #   - 홈 (히어로 배너 + 달력)
+│   │   ├── list/page.tsx      #   - 설교 목록 (리스트)
 │   │   ├── [id]/page.tsx      #   - 설교 상세 + 오디오 재생
 │   │   └── upload/page.tsx    #   - 설교 등록 폼
 │   ├── login/page.tsx         # [프론트엔드] 로그인 페이지
 │   ├── api/sermons/           # [백엔드] REST API
-│   │   ├── route.ts           #   - GET /api/sermons (목록)
-│   │   └── [id]/route.ts      #   - GET /api/sermons/:id (단건)
+│   │   ├── route.ts           #   - GET /api/sermons (목록), POST (등록)
+│   │   └── [id]/route.ts      #   - GET /api/sermons/:id (단건), DELETE (삭제)
 │   └── layout.tsx             # 공통 레이아웃 (헤더 포함)
 │
 ├── components/                # 재사용 UI 컴포넌트
 │   ├── layout/Header.tsx      # 상단 네비게이션 바
+│   ├── layout/BackButton.tsx  # 뒤로가기 버튼
+│   ├── sermon/HeroBanner.tsx  # 최근 설교 히어로 배너
+│   ├── sermon/SermonCalendar.tsx # 설교 달력
 │   ├── sermon/SermonCard.tsx  # 설교 카드 (목록용)
 │   └── sermon/AudioPlayer.tsx # 오디오 플레이어
 │
@@ -318,6 +322,12 @@ Node.js 버전을 확인해보세요. `node -v` 결과가 `v20.x.x`인지 확인
 
 **Q. `git push`가 안 돼요.**  
 GitHub에 로그인이 안 되어 있을 수 있어요. `git config --global user.email "내이메일"` 과 `git config --global user.name "내이름"` 을 먼저 설정하세요.
+
+---
+
+## 커리큘럼
+
+이 프로젝트를 활용한 4회 학습 계획은 [`CURRICULUM.md`](./CURRICULUM.md) 를 참고하세요.
 
 ---
 
