@@ -7,7 +7,7 @@ export default async function SermonsPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">설교 목록</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">설교 목록</h1>
         {/* TODO: 로그인 상태일 때만 버튼 표시 */}
         <a
           href="/sermons/upload"

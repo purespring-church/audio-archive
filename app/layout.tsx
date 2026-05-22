@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={geist.className}>
-      <body className="min-h-screen bg-gray-50">
+      <body className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <Header />
         <main className="mx-auto max-w-4xl px-4 py-8">{children}</main>
       </body>
