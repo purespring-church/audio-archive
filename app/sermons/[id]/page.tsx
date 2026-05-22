@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getSermonById } from '@/lib/db/sermons'
 import AudioPlayer from '@/components/sermon/AudioPlayer'
+import BackButton from '@/components/layout/BackButton'
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('ko-KR', {
@@ -20,9 +21,7 @@ export default async function SermonDetailPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <a href="/sermons" className="mb-6 inline-block text-sm text-gray-400 hover:text-gray-700">
-        ← 목록으로
-      </a>
+      <BackButton />
 
       <h1 className="mb-2 text-2xl font-bold text-gray-900">{sermon.title}</h1>
 

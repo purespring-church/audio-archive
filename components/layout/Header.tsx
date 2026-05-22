@@ -9,7 +9,7 @@ export default function Header() {
         </Link>
         <nav className="flex items-center gap-4">
           <Link
-            href="/sermons"
+            href="/sermons/list"
             className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
           >
             설교 목록
