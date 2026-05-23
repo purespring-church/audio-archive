@@ -9,7 +9,8 @@
  */
 
 import { NextResponse } from 'next/server'
-import { getSermons } from '@/lib/db/sermons'
+import { getSermons, createSermon } from '@/lib/db/sermons'
+import { getUser } from '@/lib/auth/middleware'
 
 // GET /api/sermons — 설교 목록 반환
 export async function GET() {
@@ -24,4 +25,20 @@ export async function GET() {
   }
 }
 
-// TODO: POST /api/sermons — 설교 메타데이터 저장 (인증 필요)
+// POST /api/sermons — 설교 등록 (인증 필요)
+export async function POST(request: Request) {
+  const user = await getUser()
+  if (!user) {
+    return NextResponse.json({ error: '로그인이 필요합니다.' }, { status: 401 })
+  }
+
+  try {
+    const body = await request.json()
+    const sermon = await createSermon({ ...body, created_by: user.id })
+    return NextResponse.json(sermon, { status: 201 })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error)
+    console.error('[POST /api/sermons]', message)
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
+}

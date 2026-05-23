@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/client'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 /**
  * [Supabase Storage 파일 업로드]
@@ -14,12 +15,12 @@ import { createClient } from '@/lib/supabase/server'
 const BUCKET = 'sermons'
 
 export async function uploadAudioFile(file: File): Promise<string> {
-  const supabase = await createClient()
+  const supabase = createClient()
 
   const year = new Date().getFullYear()
   const month = String(new Date().getMonth() + 1).padStart(2, '0')
-  const fileName = `${Date.now()}-${file.name}`
-  const filePath = `${year}/${month}/${fileName}`
+  const ext = file.name.split('.').pop() ?? 'audio'
+  const filePath = `${year}/${month}/${Date.now()}.${ext}`
 
   const { error } = await supabase.storage
     .from(BUCKET)
@@ -31,4 +32,12 @@ export async function uploadAudioFile(file: File): Promise<string> {
   return data.publicUrl
 }
 
-// TODO: deleteAudioFile(filePath) — Storage에서 파일 삭제
+// Storage에서 파일 삭제 (API Route에서 소유권 확인 후 호출)
+// fileUrl: 전체 공개 URL → 버킷 이후 경로만 추출해서 삭제
+export async function deleteAudioFile(fileUrl: string): Promise<void> {
+  const supabase = createAdminClient()
+  const filePath = fileUrl.split(`/storage/v1/object/public/${BUCKET}/`)[1]
+  if (!filePath) throw new Error('파일 경로를 확인할 수 없습니다.')
+  const { error } = await supabase.storage.from(BUCKET).remove([filePath])
+  if (error) throw new Error(error.message)
+}

@@ -12,8 +12,10 @@
 
 import { notFound } from 'next/navigation'
 import { getSermonById } from '@/lib/db/sermons'
+import { getUser } from '@/lib/auth/middleware'
 import AudioPlayer from '@/components/sermon/AudioPlayer'
 import BackButton from '@/components/layout/BackButton'
+import DeleteButton from '@/components/sermon/DeleteButton'
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('ko-KR', {
@@ -27,13 +29,18 @@ type Props = { params: Promise<{ id: string }> }
 
 export default async function SermonDetailPage({ params }: Props) {
   const { id } = await params
-  const sermon = await getSermonById(id)
+  const [sermon, user] = await Promise.all([getSermonById(id), getUser()])
 
   if (!sermon) notFound()
 
+  const isOwner = !!user && sermon.created_by === user.id
+
   return (
     <div className="mx-auto max-w-2xl">
-      <BackButton />
+      <div className="mb-4 flex items-center justify-between">
+        <BackButton />
+        {isOwner && <DeleteButton sermonId={sermon.id} />}
+      </div>
 
       <h1 className="mb-2 text-2xl font-bold text-gray-900">{sermon.title}</h1>
 
