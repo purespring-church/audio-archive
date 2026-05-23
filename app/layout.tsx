@@ -6,7 +6,7 @@ import './globals.css'
 const geist = Geist({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'SAM 설교 아카이브',
+  title: '맑은샘교회 새벽예배',
   description: '설교 녹음 파일을 관리하는 웹 서비스',
 }
 

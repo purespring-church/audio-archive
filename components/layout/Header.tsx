@@ -34,7 +34,7 @@ export default function Header() {
     <header className="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
         <Link href="/sermons" className="text-lg font-bold text-gray-900 dark:text-gray-100">
-          SAM 설교 아카이브
+          맑은샘교회 새벽예배
         </Link>
         <nav className="flex items-center gap-4">
           <Link
