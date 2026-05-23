@@ -79,6 +79,7 @@ export default function UploadPage() {
             type="text"
             name="preacher"
             required
+            defaultValue="이대환 목사"
             className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:outline-none"
             placeholder="설교자 이름"
           />
