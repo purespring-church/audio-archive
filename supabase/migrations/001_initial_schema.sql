@@ -33,3 +33,9 @@ CREATE POLICY "본인 삭제"
 
 -- Supabase Storage 버킷 생성 (대시보드에서 직접 생성해도 됩니다)
 -- INSERT INTO storage.buckets (id, name, public) VALUES ('sermons', 'sermons', true);
+
+-- 역할별 테이블 접근 권한 부여
+-- anon: 비로그인 사용자 (읽기만 허용)
+-- authenticated: 로그인 사용자 (읽기·쓰기·삭제 — 실제 허용 범위는 위 RLS 정책으로 제어)
+GRANT SELECT ON TABLE public.sermons TO anon;
+GRANT SELECT, INSERT, DELETE ON TABLE public.sermons TO authenticated;
