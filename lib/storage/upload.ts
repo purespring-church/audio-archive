@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/client'
 
 /**
  * [Supabase Storage 파일 업로드]
@@ -14,12 +14,12 @@ import { createClient } from '@/lib/supabase/server'
 const BUCKET = 'sermons'
 
 export async function uploadAudioFile(file: File): Promise<string> {
-  const supabase = await createClient()
+  const supabase = createClient()
 
   const year = new Date().getFullYear()
   const month = String(new Date().getMonth() + 1).padStart(2, '0')
-  const fileName = `${Date.now()}-${file.name}`
-  const filePath = `${year}/${month}/${fileName}`
+  const ext = file.name.split('.').pop() ?? 'audio'
+  const filePath = `${year}/${month}/${Date.now()}.${ext}`
 
   const { error } = await supabase.storage
     .from(BUCKET)

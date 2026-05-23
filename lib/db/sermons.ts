@@ -90,5 +90,19 @@ export async function getSermonDates(): Promise<{ id: string; sermon_date: strin
   return data ?? []
 }
 
-// TODO: createSermon(data) — 설교 메타데이터 저장
+// 설교 등록 (로그인한 사용자만 호출 — API Route에서 인증 확인 후 호출)
+export async function createSermon(
+  data: Omit<Sermon, 'id' | 'created_at'>
+): Promise<Sermon> {
+  const { createAdminClient } = await import('@/lib/supabase/admin')
+  const supabase = createAdminClient()
+  const { data: sermon, error } = await supabase
+    .from('sermons')
+    .insert(data)
+    .select()
+    .single()
+  if (error) throw new Error(error.message)
+  return sermon
+}
+
 // TODO: deleteSermon(id)   — 설교 삭제 (본인만)
