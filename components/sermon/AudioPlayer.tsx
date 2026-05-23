@@ -29,8 +29,8 @@ export default function AudioPlayer({ fileUrl, title }: Props) {
   }
 
   return (
-    <div className="rounded-lg bg-gray-50 p-4">
-      <p className="mb-2 text-sm font-medium text-gray-700">{title}</p>
+    <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+      <p className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">{title}</p>
       {/* HTML5 기본 오디오 플레이어 — 추후 커스텀 UI로 교체 가능 */}
       <audio controls className="w-full" src={fileUrl}>
         브라우저가 오디오를 지원하지 않습니다.
