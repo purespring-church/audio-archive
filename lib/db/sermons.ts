@@ -105,4 +105,13 @@ export async function createSermon(
   return sermon
 }
 
-// TODO: deleteSermon(id)   — 설교 삭제 (본인만)
+// 설교 삭제 (API Route에서 소유권 확인 후 호출)
+export async function deleteSermon(id: string): Promise<void> {
+  const { createAdminClient } = await import('@/lib/supabase/admin')
+  const supabase = createAdminClient()
+  const { error } = await supabase
+    .from('sermons')
+    .delete()
+    .eq('id', id)
+  if (error) throw new Error(error.message)
+}
