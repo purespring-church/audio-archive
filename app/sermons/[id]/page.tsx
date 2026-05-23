@@ -42,16 +42,16 @@ export default async function SermonDetailPage({ params }: Props) {
         {isOwner && <DeleteButton sermonId={sermon.id} />}
       </div>
 
-      <h1 className="mb-2 text-2xl font-bold text-gray-900">{sermon.title}</h1>
+      <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">{sermon.title}</h1>
 
-      <div className="mb-6 flex flex-wrap gap-3 text-sm text-gray-500">
+      <div className="mb-6 flex flex-wrap gap-3 text-sm text-gray-500 dark:text-gray-400">
         <span>{sermon.preacher}</span>
         <span>·</span>
         <span>{formatDate(sermon.sermon_date)}</span>
         {sermon.scripture && (
           <>
             <span>·</span>
-            <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
+            <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-300">
               {sermon.scripture}
             </span>
           </>
@@ -61,7 +61,7 @@ export default async function SermonDetailPage({ params }: Props) {
       <AudioPlayer fileUrl={sermon.file_url} title={sermon.title} />
 
       {sermon.description && (
-        <p className="mt-6 leading-relaxed text-gray-600">{sermon.description}</p>
+        <p className="mt-6 leading-relaxed text-gray-600 dark:text-gray-400">{sermon.description}</p>
       )}
     </div>
   )
